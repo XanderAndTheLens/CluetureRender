@@ -9,7 +9,10 @@ const app = express();
 const server = http.createServer(app);
 const io = new SocketIOServer(server, {
   cors: {
-    origin: process.env.CLIENT_URL || "http://localhost:5173",
+    origin: [
+      "http://localhost:5173",     // Localhost for SvelteKit app
+      "http://192.168.0.211:5173"  // Local network IP for SvelteKit app
+    ],
     methods: ["GET", "POST"],
     credentials: true,
   }

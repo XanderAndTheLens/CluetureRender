@@ -1,14 +1,13 @@
-import adapter from '@sveltejs/adapter-node';
+// sveltekit-app/svelte.config.js
+import adapter from '@sveltejs/adapter-node';  // Use Node adapter for Render deployment
 import { sveltePreprocess } from 'svelte-preprocess';
 
 export default {
   kit: {
-    adapter: adapter({
-      // Pass the port through environment variable to ensure Render detects it
-      env: {
-        port: process.env.PORT || 3000
-      }
-    })
+    adapter: adapter(),
+    alias: {
+      $lib: './src/lib',
+    }
   },
   preprocess: sveltePreprocess(),
 };
