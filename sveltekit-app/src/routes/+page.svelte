@@ -1,6 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
-	import socket from '$lib/socket';  // Import shared socket instance
+	import socket, { websocket_server } from '$lib/socket';  // Import shared socket instance
 	import "../app.css";
   
 	let question = "Write a fact about yourself";
@@ -9,9 +9,13 @@
 	const username = "Main Screen"; 
   
 	onMount(() => {
+
+	console.log("Web socket sever: ", websocket_server)
+	
 	  // Join game room and handle events on the main screen
 	  socket.emit('join_game', { gameCode, username });
 	  console.log(`Main screen joined game: ${gameCode} with username: ${username}`);
+	  
 	  
 	  socket.on('user_answered', (data) => {
 		console.log("Answer received on main screen:", data);

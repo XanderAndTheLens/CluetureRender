@@ -1,6 +1,6 @@
 <script>
 	import { onMount } from 'svelte';
-	import socket from '$lib/socket';  // Import shared socket instance
+	import socket, { websocket_server } from '$lib/socket';  // Import shared socket instance
   
 	let gameCode = '';
 	let username = '';
@@ -8,6 +8,8 @@
 	let connected = false;
   
 	onMount(() => {
+	  console.log("Web socket sever: ", websocket_server)
+
 	  socket.on('connect', () => {
 		console.log('Connected to server');
 		connected = true;

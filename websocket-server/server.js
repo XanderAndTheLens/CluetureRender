@@ -11,14 +11,17 @@ const io = new SocketIOServer(server, {
   cors: {
     origin: [
       "http://localhost:5173",     // Localhost for SvelteKit app
-      "http://192.168.0.211:5173"  // Local network IP for SvelteKit app
+      "http://192.168.0.211:5173",  // Local network IP for SvelteKit app
+      "https://clueturerender.onrender.com"
     ],
     methods: ["GET", "POST"],
     credentials: true,
   }
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || process.env.LOCAL_PORT;
+
+console.log('Starting websocket sever on port:', PORT );
 
 server.listen(PORT, () => {
   console.log(`WebSocket server is running on port ${PORT}`);
