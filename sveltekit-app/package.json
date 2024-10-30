@@ -6,7 +6,7 @@
 		"dev": "vite dev",
 		"build": "vite build",
 		"preview": "vite preview",
-		"start": "node server.js",
+		"start": "node .svelte-kit/output/server/index.js",
 		"format": "prettier --write .",
 		"lint": "prettier --check . && eslint ."
 	},
