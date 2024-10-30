@@ -1,4 +1,5 @@
-import 'dotenv/config'; // Load environment variables
+// websocket-server/server.js
+import 'dotenv/config';
 import express from 'express';
 import { Server as SocketIOServer } from 'socket.io';
 import http from 'http';
@@ -8,10 +9,16 @@ const app = express();
 const server = http.createServer(app);
 const io = new SocketIOServer(server, {
   cors: {
-    origin: ["http://192.168.0.211:5173", "http://localhost:5173"], // Allow requests from both origins
+    origin: process.env.CLIENT_URL || "http://localhost:5173",
     methods: ["GET", "POST"],
     credentials: true,
-  },
+  }
+});
+
+const PORT = process.env.PORT || 3000;
+
+server.listen(PORT, () => {
+  console.log(`WebSocket server is running on port ${PORT}`);
 });
 
 const APIPrompt = "Take this fact about someone and extend the sentence to make it funnier.";
@@ -98,9 +105,4 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     console.log('User disconnected:', socket.id);
   });
-});
-
-const PORT = process.env.PORT || 3000;
-server.listen(PORT, () => {
-  console.log(`WebSocket server is running on port ${PORT}`);
 });
